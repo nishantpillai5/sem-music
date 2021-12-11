@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import { ErrorPage } from "./areas/ErrorPage";
+import { FindAlbumPage } from "./areas/FindAlbumPage/FindAlbumPage";
+import { FindArtistPage } from "./areas/FindArtistPage/FindArtistPage";
+import { FindSongPage } from "./areas/FindSongPage/FindSongPage";
+import { HomePage } from "./areas/HomePage";
+import { Layout } from "./shared/Layout";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="artist" element={<FindArtistPage />} />
+          <Route path="album" element={<FindAlbumPage />} />
+          <Route path="song" element={<FindSongPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
