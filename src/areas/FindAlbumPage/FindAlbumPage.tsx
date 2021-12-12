@@ -1,9 +1,14 @@
+import { AlbumType } from "@sem-music/utils/types";
 import React from "react";
+import CardGroup from "react-bootstrap/esm/CardGroup";
+import { AlbumInfo } from "./components/AlbumInfo";
 
-export function FindAlbumPage() {
+export const FindAlbumPage = () => {
+  const album1: AlbumType = { title: "title" };
   return (
-    <div>
-      <text>Album</text>
-    </div>
+    <CardGroup>
+      {/* List of Albuminfo, pass each item as props */}
+      <AlbumInfo album={album1} />
+    </CardGroup>
   );
-}
+};

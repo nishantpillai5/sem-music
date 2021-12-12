@@ -1,9 +1,14 @@
+import { ArtistType } from "@sem-music/utils/types";
 import React from "react";
+import CardGroup from "react-bootstrap/esm/CardGroup";
+import { ArtistInfo } from "./components/ArtistInfo";
 
-export function FindArtistPage() {
+export const FindArtistPage = () => {
+  const artist1: ArtistType = { title: "title" };
+
   return (
-    <div>
-      <text>Artist</text>
-    </div>
+    <CardGroup>
+      <ArtistInfo artist={artist1} />
+    </CardGroup>
   );
-}
+};

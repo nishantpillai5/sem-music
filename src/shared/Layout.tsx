@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Outlet } from "react-router-dom";
 
-export function Layout() {
+export const Layout = () => {
   return (
     <div>
       <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
@@ -23,4 +23,4 @@ export function Layout() {
       <Outlet />
     </div>
   );
-}
+};
