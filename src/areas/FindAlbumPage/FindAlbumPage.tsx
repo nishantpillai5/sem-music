@@ -1,6 +1,6 @@
-import { AlbumType } from "@sem-music/utils/types";
 import React from "react";
 import CardGroup from "react-bootstrap/esm/CardGroup";
+import { AlbumType } from "src/utils/types";
 import { AlbumInfo } from "./components/AlbumInfo";
 
 export const FindAlbumPage = () => {
