@@ -9,3 +9,10 @@ export type AlbumType = {
 export type ArtistType = {
   title: string;
 };
+
+export type FetchType = {
+  fetch: {
+    termType: string;
+    value: string;
+  };
+};
