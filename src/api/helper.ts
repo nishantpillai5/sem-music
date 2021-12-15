@@ -21,3 +21,15 @@ SELECT DISTINCT ?same WHERE {
 }
  
 `;
+
+export const artistQueryBuilder = (form: string) => {
+  return "query";
+};
+
+export const albumQueryBuilder = (form: string) => {
+  return "query";
+};
+
+export const songQueryBuilder = (form: string) => {
+  return "query";
+};

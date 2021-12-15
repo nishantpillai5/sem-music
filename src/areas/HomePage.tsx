@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/esm/Card";
 import Container from "react-bootstrap/esm/Container";
-import { call_api, get_artist_info } from "../api/api";
+import { get_artist_info } from "src/api/musicBrainz";
 
 export function HomePage() {
   const [something, setSomething] = React.useState<string[]>([]);

@@ -32,3 +32,15 @@ export type AlbumApiType = {
   title: string;
   "first-release-date": string;
 };
+
+export type ArtistFormType = {
+  title: string;
+};
+
+export type AlbumFormType = {
+  title: string;
+};
+
+export type SongFormType = {
+  title: string;
+};
