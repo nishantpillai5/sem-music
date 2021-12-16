@@ -7,19 +7,22 @@ import { FindArtistPage } from "./areas/FindArtistPage/FindArtistPage";
 import { FindSongPage } from "./areas/FindSongPage/FindSongPage";
 import { HomePage } from "./areas/HomePage";
 import { Layout } from "./shared/Layout";
+import { StoreProvider } from "./store/Store";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="artist" element={<FindArtistPage />} />
-          <Route path="album" element={<FindAlbumPage />} />
-          <Route path="song" element={<FindSongPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
+      <StoreProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="artist" element={<FindArtistPage />} />
+            <Route path="album" element={<FindAlbumPage />} />
+            <Route path="song" element={<FindSongPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
+        </Routes>
+      </StoreProvider>
     </div>
   );
 }

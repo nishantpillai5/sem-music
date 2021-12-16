@@ -1,5 +1,3 @@
-import { string } from "yargs";
-
 export type SongType = {
   title: string;
 };
@@ -12,8 +10,14 @@ export type ArtistType = {
   title: string;
 };
 
+export type FetchDictionary = { [link: string]: string };
+
 export type FetchType = {
-  fetch: {
+  data: {
+    termType: string;
+    value: string;
+  };
+  label: {
     termType: string;
     value: string;
   };
@@ -34,7 +38,14 @@ export type AlbumApiType = {
 };
 
 export type ArtistFormType = {
-  title: string;
+  type: string;
+  typeEnabled: boolean;
+  instrument: string;
+  instrumentEnabled: boolean;
+  genre: string;
+  genreEnabled: boolean;
+  year: string;
+  yearEnabled: boolean;
 };
 
 export type AlbumFormType = {
