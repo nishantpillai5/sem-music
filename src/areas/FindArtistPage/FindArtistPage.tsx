@@ -1,10 +1,9 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import {
+  ArtistFetchType,
   ArtistFormType,
-  ArtistType,
   FetchDictionary,
-  FetchType,
 } from "src/utils/types";
 import { ArtistCard } from "./components/ArtistCard";
 import { ArtistModal } from "./components/ArtistModal";
@@ -12,19 +11,18 @@ import { ArtistForm } from "./components/ArtistForm";
 import { getArtists } from "src/api/dbpedia";
 
 export const FindArtistPage = () => {
-  const [artists, setArtists] = React.useState<FetchDictionary>({});
+  const [artists, setArtists] = React.useState<
+    FetchDictionary<ArtistFetchType>
+  >({});
 
   const [showModal, setShowModal] = React.useState(false);
-  const [selectedArtist, setSelectedArtist] = React.useState<string | null>(
-    null
-  );
+  const [selectedArtist, setSelectedArtist] =
+    React.useState<ArtistFetchType | null>(null);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
   const executeQuery = async (form: ArtistFormType) => {
-    //call api to fill cards
-    // const query = artistQueryBuilder(form);
     const results = await getArtists(form);
     setArtists(results);
   };
@@ -39,9 +37,9 @@ export const FindArtistPage = () => {
       <ArtistForm handleSubmit={executeQuery} />
       {Object.keys(artists).map((artist) => (
         <ArtistCard
-          artist={artist}
+          artist={artists[artist]}
           handleClick={() => {
-            setSelectedArtist(artist);
+            setSelectedArtist(artists[artist]);
             handleShowModal();
           }}
         />

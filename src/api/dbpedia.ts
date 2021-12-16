@@ -2,43 +2,42 @@ import {
   allGenresQuery,
   allInstrumentsQuery,
   artistQueryBuilder,
-  brainz_url_query,
 } from "./helper";
 import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
-import { ArtistFormType, FetchDictionary, FetchType } from "src/utils/types";
+import {
+  ArtistFormType,
+  FetchDictionary,
+  BaseFetchType,
+  ArtistFetchType,
+  DropdownFetchType,
+} from "src/utils/types";
 
-export async function dbpedia(query: string) {
+export async function dbpedia<T extends BaseFetchType>(query: string) {
   const fetcher = new SparqlEndpointFetcher();
   const bindingsStream = await fetcher.fetchBindings(
     "https://dbpedia.org/sparql",
     query
   );
 
-  var results = new Promise<FetchDictionary>(function (resolve, reject) {
-    const dataDictionary: FetchDictionary = {};
-    bindingsStream.on("data", (bindings: FetchType) => {
-      dataDictionary[bindings.data.value] = bindings.label.value;
+  var results = new Promise<FetchDictionary<T>>(function (resolve, reject) {
+    const dataDictionary: FetchDictionary<T> = {};
+    bindingsStream.on("data", (bindings: T) => {
+      dataDictionary[bindings.data.value] = bindings;
     });
     bindingsStream.on("end", () => resolve(dataDictionary));
   });
   return results;
 }
 
-export const convert_url = async (dbpediaURL: string) => {
-  const brainz_url = await dbpedia(brainz_url_query(dbpediaURL));
-  console.log(brainz_url);
-};
-
 export async function getAllInstruments() {
-  return dbpedia(allInstrumentsQuery);
+  return dbpedia<DropdownFetchType>(allInstrumentsQuery);
 }
 
 export async function getAllGenres() {
-  return dbpedia(allGenresQuery);
+  return dbpedia<DropdownFetchType>(allGenresQuery);
 }
 
 export async function getArtists(form: ArtistFormType) {
   const query = artistQueryBuilder(form);
-  console.log(query);
-  return dbpedia(query);
+  return dbpedia<ArtistFetchType>(query);
 }

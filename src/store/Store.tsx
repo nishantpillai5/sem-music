@@ -1,5 +1,6 @@
 import React from "react";
 import { getAllGenres, getAllInstruments } from "src/api/dbpedia";
+import { DropdownDictFetchType } from "src/utils/types";
 import {
   StoreAction,
   StoreContextType,
@@ -24,11 +25,10 @@ const reducer = (state: StoreState, action: StoreAction): StoreState => {
 };
 
 export const StoreContext = React.createContext<StoreContextType>({
-  // TODO: Why can't they be empty?
   storeState: {
     loading: true,
-    genres: { select: "Select" },
-    instruments: { select: "Select" },
+    genres: {},
+    instruments: {},
   },
   dispatch: () => null,
 });

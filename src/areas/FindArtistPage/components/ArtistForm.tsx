@@ -19,7 +19,8 @@ const initialState: ArtistFormType = {
   instrumentEnabled: false,
   genre: "",
   genreEnabled: false,
-  year: "",
+  startYear: "",
+  endYear: "",
   yearEnabled: false,
 };
 
@@ -104,12 +105,14 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               }}
             >
               <Dropdown.Toggle id="dropdown-genre">
-                {form.genre ? storeState.genres[form.genre] : "Select Genre"}
+                {form.genre
+                  ? storeState.genres[form.genre].label.value
+                  : "Select Genre"}
               </Dropdown.Toggle>
               <Dropdown.Menu as={CustomDrop}>
                 {Object.keys(storeState.genres).map((key) => (
                   <Dropdown.Item eventKey={key}>
-                    {storeState.genres[key]}
+                    {storeState.genres[key].label.value}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
@@ -144,13 +147,13 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
             >
               <Dropdown.Toggle id="dropdown-autoclose-true">
                 {form.instrument
-                  ? storeState.instruments[form.instrument]
+                  ? storeState.instruments[form.instrument].label.value
                   : "Select Instrument"}
               </Dropdown.Toggle>
               <Dropdown.Menu as={CustomDrop}>
                 {Object.keys(storeState.instruments).map((key) => (
                   <Dropdown.Item eventKey={key}>
-                    {storeState.instruments[key]}
+                    {storeState.instruments[key].label.value}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
@@ -168,10 +171,20 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
           </Col>
           <Col sm={2}>
             <Form.Control
-              name="year"
+              name="startYear"
               type="text"
-              id="year"
-              value={form.year}
+              id="startYear"
+              value={form.startYear}
+              onChange={handleTextOnChange}
+            />
+          </Col>
+          -
+          <Col sm={2}>
+            <Form.Control
+              name="endYear"
+              type="text"
+              id="endYear"
+              value={form.endYear}
               onChange={handleTextOnChange}
             />
           </Col>

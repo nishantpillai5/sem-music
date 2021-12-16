@@ -1,8 +1,16 @@
 import { ArtistApiType } from "src/utils/types";
 import { axios } from "./helper";
 
-export async function get_artist_info(id: string) {
+function parseURL(url: string) {
+  const array = url.split("/");
+  const id = array[array.length - 1];
+  return id;
+}
+
+export async function getArtistInfo(url: string) {
+  const id = parseURL(url);
   const { data, status } = await axios.get(`/artist/${id}?inc=release-groups`);
+  console.log(data);
   const artist: ArtistApiType = {
     id: data["id"],
     name: data["name"],
@@ -14,7 +22,7 @@ export async function get_artist_info(id: string) {
   return artist;
 }
 
-export async function get_album_info(id: string) {
+export async function getAlbumInfo(id: string) {
   const { data, status } = await axios.get(`/release-group/${id}`);
   console.log(data);
   return data;

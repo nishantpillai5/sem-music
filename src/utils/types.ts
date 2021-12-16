@@ -10,14 +10,38 @@ export type ArtistType = {
   title: string;
 };
 
-export type FetchDictionary = { [link: string]: string };
+export type FetchDictionary<T> = { [link: string]: T };
 
-export type FetchType = {
+export type BaseFetchType = {
   data: {
     termType: string;
     value: string;
   };
+};
+
+export type DropdownFetchType = BaseFetchType & {
   label: {
+    termType: string;
+    value: string;
+  };
+};
+
+export type DropdownDictFetchType = FetchDictionary<DropdownFetchType>;
+
+export type ArtistFetchType = BaseFetchType & {
+  label: {
+    termType: string;
+    value: string;
+  };
+  startYear: {
+    termType: string;
+    value: string;
+  };
+  endYear: {
+    termType: string;
+    value: string;
+  };
+  url: {
     termType: string;
     value: string;
   };
@@ -44,7 +68,8 @@ export type ArtistFormType = {
   instrumentEnabled: boolean;
   genre: string;
   genreEnabled: boolean;
-  year: string;
+  startYear: string;
+  endYear: string;
   yearEnabled: boolean;
 };
 

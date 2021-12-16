@@ -1,4 +1,4 @@
-import { FetchDictionary } from "src/utils/types";
+import { DropdownDictFetchType } from "src/utils/types";
 
 export interface StoreContextType {
   storeState: StoreState;
@@ -8,11 +8,11 @@ export interface StoreContextType {
 export interface StoreProviderProps {}
 export type StoreState = {
   loading: boolean;
-  instruments: FetchDictionary;
-  genres: FetchDictionary;
+  instruments: DropdownDictFetchType;
+  genres: DropdownDictFetchType;
 };
 
 export type StoreAction =
   | { type: "set-loading"; payload: boolean }
-  | { type: "set-genres"; payload: FetchDictionary }
-  | { type: "set-instruments"; payload: FetchDictionary };
+  | { type: "set-genres"; payload: DropdownDictFetchType }
+  | { type: "set-instruments"; payload: DropdownDictFetchType };
