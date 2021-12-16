@@ -1,38 +1,22 @@
-# Semantic Music Search Engine
+# SPARQL Music Query Engine
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a ReactJS project which makes SPARQL queries to dbpedia to get list of artists based on the selected filters. More metadata about the artist are gathered from the MusicBrainz API.
 
-This project is also deployed on [Netlify](https://elastic-swartz-233d7d.netlify.app/artist)
+# Live Application
 
-## Available Scripts
+This project is deployed here - [https://sem-music.netlify.app/artist](https://sem-music.netlify.app/artist)
 
-In the project directory, you can run:
+# Running the application locally
 
-### `yarn start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Node JS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node JS is required to run the project. Refer to https://nodejs.org/en/ to install nodejs
 
-### `yarn test`
+## Procedure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Clone the project to a local directory and run the following commands in that directory.
+- `yarn install` to install the required dependencies to run the project
+- `yarn start` to run the app in development mode.
+- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

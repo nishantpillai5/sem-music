@@ -5,16 +5,6 @@ export const axios = Axios.create({
   baseURL: "https://musicbrainz.org/ws/2/",
 });
 
-export const genre_query = `
-SELECT DISTINCT ?genre WHERE {  
-    {  ?fetch a dbo:Band;
-                dbo:genre ?genre.}
-UNION
- {  ?fetch a dbo:Musical_Artist;
-                dbo:genre ?genre.}
-    } ORDER BY ?genre
-`;
-
 export const artistQueryBuilder = (form: ArtistFormType) => {
   const query = `
   SELECT DISTINCT ?data ?label ?startYear ?endYear ?url ?comment WHERE {
@@ -62,12 +52,6 @@ export const albumQueryBuilder = (form: string) => {
 export const songQueryBuilder = (form: string) => {
   return "query";
 };
-
-export const prefixes = `
-PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-`;
 
 export const allInstrumentsQuery = `
 SELECT DISTINCT ?data ?label WHERE {
