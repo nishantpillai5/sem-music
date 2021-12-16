@@ -2,10 +2,9 @@ import React from "react";
 import Button from "react-bootstrap/esm/Button";
 
 import Modal from "react-bootstrap/esm/Modal";
-import { ArtistType } from "../../../utils/types";
 
 type ArtistModalProps = {
-  artist: ArtistType | null;
+  artist: string | null;
   showModal: boolean;
   handleCloseModal: () => void;
 };

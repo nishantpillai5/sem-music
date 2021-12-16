@@ -1,10 +1,11 @@
 import {
   allGenresQuery,
   allInstrumentsQuery,
+  artistQueryBuilder,
   brainz_url_query,
 } from "./helper";
 import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
-import { FetchDictionary, FetchType } from "src/utils/types";
+import { ArtistFormType, FetchDictionary, FetchType } from "src/utils/types";
 
 export async function dbpedia(query: string) {
   const fetcher = new SparqlEndpointFetcher();
@@ -34,4 +35,10 @@ export async function getAllInstruments() {
 
 export async function getAllGenres() {
   return dbpedia(allGenresQuery);
+}
+
+export async function getArtists(form: ArtistFormType) {
+  const query = artistQueryBuilder(form);
+  console.log(query);
+  return dbpedia(query);
 }

@@ -33,17 +33,16 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
     setForm({ ...form, [name]: checked });
   };
 
-  React.useEffect(() => {
-    //fetch from API
-    // get genre, getlocation from api
-    // return () => {
-    //   cleanup
-    // }
-  }, []);
+  const handleTextOnChange = (e: any) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  React.useEffect(() => {}, [form]);
 
   return (
     <Form>
-      <Form.Group controlId="formName">
+      <Form.Group>
         <Row className="g-2">
           <Col sm={2}>
             <Form.Check
@@ -51,6 +50,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               name="typeEnabled"
               type="switch"
               id="typeEnabled"
+              checked={form.typeEnabled}
               onChange={handleOnChange}
             />
           </Col>
@@ -60,7 +60,9 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
                 if (e) {
                   const newForm = { ...form };
                   newForm.type = e;
-                  console.log(e);
+                  if (!form.typeEnabled) {
+                    newForm.typeEnabled = true;
+                  }
                   if (e === "Band") {
                     newForm.instrument = "";
                     newForm.instrumentEnabled = false;
@@ -84,6 +86,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               name="genreEnabled"
               type="switch"
               id="genreEnabled"
+              checked={form.genreEnabled}
               onChange={handleOnChange}
             />
           </Col>
@@ -93,6 +96,9 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
                 if (e) {
                   const newForm = { ...form };
                   newForm.genre = e;
+                  if (!form.genreEnabled) {
+                    newForm.genreEnabled = true;
+                  }
                   setForm(newForm);
                 }
               }}
@@ -115,6 +121,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               name="instrumentEnabled"
               type="switch"
               id="instrumentEnabled"
+              checked={form.instrumentEnabled}
               onChange={handleOnChange}
             />
           </Col>
@@ -124,6 +131,13 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
                 if (e) {
                   const newForm = { ...form };
                   newForm.instrument = e;
+                  if (!form.instrumentEnabled) {
+                    newForm.instrumentEnabled = true;
+                  }
+                  if (form.type === "Band") {
+                    newForm.type = "Person";
+                    newForm.typeEnabled = true;
+                  }
                   setForm(newForm);
                 }
               }}
@@ -148,14 +162,17 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               name="yearEnabled"
               type="switch"
               id="yearEnabled"
+              checked={form.yearEnabled}
               onChange={handleOnChange}
             />
           </Col>
           <Col sm={2}>
-            <Form.Range
+            <Form.Control
               name="year"
+              type="text"
+              id="year"
               value={form.year}
-              onChange={handleOnChange}
+              onChange={handleTextOnChange}
             />
           </Col>
         </Row>

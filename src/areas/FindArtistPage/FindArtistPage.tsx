@@ -1,42 +1,32 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
-import { artistQueryBuilder } from "src/api/helper";
-import { ArtistFormType, ArtistType } from "src/utils/types";
+import {
+  ArtistFormType,
+  ArtistType,
+  FetchDictionary,
+  FetchType,
+} from "src/utils/types";
 import { ArtistCard } from "./components/ArtistCard";
 import { ArtistModal } from "./components/ArtistModal";
 import { ArtistForm } from "./components/ArtistForm";
+import { getArtists } from "src/api/dbpedia";
 
 export const FindArtistPage = () => {
-  const artist1: ArtistType = { title: "title" };
-  const [artists, setArtists] = React.useState<ArtistType[]>([
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-    artist1,
-  ]);
+  const [artists, setArtists] = React.useState<FetchDictionary>({});
 
   const [showModal, setShowModal] = React.useState(false);
-  const [selectedArtist, setSelectedArtist] = React.useState<ArtistType | null>(
+  const [selectedArtist, setSelectedArtist] = React.useState<string | null>(
     null
   );
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
 
-  const executeQuery = (form: ArtistFormType) => {
+  const executeQuery = async (form: ArtistFormType) => {
     //call api to fill cards
-    const query = artistQueryBuilder(form);
-    console.log(form);
+    // const query = artistQueryBuilder(form);
+    const results = await getArtists(form);
+    setArtists(results);
   };
 
   return (
@@ -47,11 +37,11 @@ export const FindArtistPage = () => {
         showModal={showModal}
       />
       <ArtistForm handleSubmit={executeQuery} />
-      {artists.map((artist) => (
+      {Object.keys(artists).map((artist) => (
         <ArtistCard
           artist={artist}
           handleClick={() => {
-            setSelectedArtist(artist1);
+            setSelectedArtist(artist);
             handleShowModal();
           }}
         />

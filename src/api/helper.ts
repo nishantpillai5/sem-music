@@ -25,17 +25,17 @@ SELECT DISTINCT ?same WHERE {
 
 export const artistQueryBuilder = (form: ArtistFormType) => {
   const query = `
-  SELECT DISTINCT ?band ?bandname ?year (SAMPLE(?img) as ?picture) where {
+  SELECT DISTINCT ?data ?label WHERE {
     ${
       form.typeEnabled
-        ? `?band rdf:type ${form.type === "Band" ? "dbo:Band" : "foaf:Person"}`
+        ? `?data rdf:type ${form.type === "Band" ? "dbo:Band" : "foaf:Person"}.`
         : ""
     }
-    ?band dbo:genre ${form.genreEnabled ? form.genre : "?genre"}.
-    ?band foaf:name ?bandname .
-    ?band dbp:yearsActive ?year .
-  OPTIONAL {
-    ?band foaf:depiction ?img .
+    ?data dbo:genre ${form.genreEnabled ? `<${form.genre}>` : "?genre"}.
+    ?data foaf:name ?label.
+    ?data dbp:yearsActive ?year.
+    ${
+      form.instrumentEnabled ? `?data dbo:instrument <${form.instrument}>.` : ""
     }
     ${
       form.yearEnabled
@@ -43,7 +43,7 @@ export const artistQueryBuilder = (form: ArtistFormType) => {
         : ""
     }
 }
-GROUP BY ?band ?bandname ?year 
+GROUP BY ?data ?label
 `;
   return query;
 };
@@ -83,3 +83,28 @@ UNION
   FILTER (langMatches(lang(?label), "EN" ))}
 }
 `;
+
+export const artistQueryBuilder2 = (form: ArtistFormType) => {
+  const query = `
+  SELECT DISTINCT ?band ?bandname ?year (SAMPLE(?img) as ?picture) where {
+    ${
+      form.typeEnabled
+        ? `?band rdf:type ${form.type === "Band" ? "dbo:Band" : "foaf:Person"}`
+        : ""
+    }
+    ?band dbo:genre ${form.genreEnabled ? form.genre : "?genre"}.
+    ?band foaf:name ?bandname .
+    ?band dbp:yearsActive ?year .
+  OPTIONAL {
+    ?band foaf:depiction ?img .
+    }
+    ${
+      form.yearEnabled
+        ? `FILTER (?year >= ${form.year} && ?year <= ${form.year})`
+        : ""
+    }
+}
+GROUP BY ?band ?bandname ?year 
+`;
+  return query;
+};
