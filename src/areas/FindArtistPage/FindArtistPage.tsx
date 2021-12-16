@@ -43,6 +43,11 @@ export const FindArtistPage = () => {
         <ArtistForm handleSubmit={executeQuery} />
       </div>
       <div className="container-fluid bg-light mt-3">
+        {Object.keys(artists).length === 0 ? (
+          <h5 className="text-muted text-center rounded-pill">
+            Nothing To Display
+          </h5>
+        ) : null}
         {Object.keys(artists).map((artist) => (
           <ArtistCard
             artist={artists[artist]}

@@ -24,7 +24,11 @@ export async function dbpedia<T extends BaseFetchType>(query: string) {
     bindingsStream.on("data", (bindings: T) => {
       dataDictionary[bindings.data.value] = bindings;
     });
-    bindingsStream.on("end", () => resolve(dataDictionary));
+    bindingsStream.on("end", () => {
+      console.log("DBpedia Query", query);
+      console.log("DBpedia Data", dataDictionary);
+      resolve(dataDictionary);
+    });
   });
   return results;
 }

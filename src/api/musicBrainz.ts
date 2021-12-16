@@ -10,7 +10,7 @@ function parseURL(url: string) {
 export async function getArtistInfo(url: string) {
   const id = parseURL(url);
   const { data } = await axios.get(`/artist/${id}?inc=release-groups`);
-  console.log(data);
+  console.log("MusicBrainz Data", data);
   const artist: ArtistApiType = {
     id: data["id"],
     name: data["name"],

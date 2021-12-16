@@ -3,19 +3,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Outlet } from "react-router-dom";
-import { StoreContext } from "src/store/Store";
 
 export const Layout = () => {
-  const { storeState } = React.useContext(StoreContext);
-
   return (
     <div>
       <Navbar bg="dark" variant="dark" expand="sm">
         <Container>
-          <Navbar.Brand href="/">
-            {storeState.loading && "Loading - "}
-            Semantic Music Search
-          </Navbar.Brand>
+          <Navbar.Brand href="/">Semantic Music Search</Navbar.Brand>
           <div>
             <Nav className="d-sm-flex d-none me-auto fs-5">
               <Nav.Link href="/">Home</Nav.Link>

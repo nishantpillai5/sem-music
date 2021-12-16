@@ -175,6 +175,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
           </Col>
           <Col>
             <Form.Control
+              disabled={!form.yearEnabled}
               name="startYear"
               type="text"
               id="startYear"
@@ -182,8 +183,10 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleTextOnChange}
             />
           </Col>
+          _
           <Col>
             <Form.Control
+              disabled={!form.yearEnabled}
               name="endYear"
               type="text"
               id="endYear"
