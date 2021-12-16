@@ -9,7 +9,7 @@ function parseURL(url: string) {
 
 export async function getArtistInfo(url: string) {
   const id = parseURL(url);
-  const { data, status } = await axios.get(`/artist/${id}?inc=release-groups`);
+  const { data } = await axios.get(`/artist/${id}?inc=release-groups`);
   console.log(data);
   const artist: ArtistApiType = {
     id: data["id"],
@@ -23,7 +23,7 @@ export async function getArtistInfo(url: string) {
 }
 
 export async function getAlbumInfo(id: string) {
-  const { data, status } = await axios.get(`/release-group/${id}`);
+  const { data } = await axios.get(`/release-group/${id}`);
   console.log(data);
   return data;
 }

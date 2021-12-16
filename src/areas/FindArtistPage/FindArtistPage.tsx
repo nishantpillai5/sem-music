@@ -16,7 +16,7 @@ export const FindArtistPage = () => {
     FetchDictionary<ArtistFetchType>
   >({});
 
-  const { storeState, dispatch } = React.useContext(StoreContext);
+  const { dispatch } = React.useContext(StoreContext);
 
   const [showModal, setShowModal] = React.useState(false);
   const [selectedArtist, setSelectedArtist] =

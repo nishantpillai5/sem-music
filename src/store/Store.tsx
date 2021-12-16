@@ -1,6 +1,5 @@
 import React from "react";
 import { getAllGenres, getAllInstruments } from "src/api/dbpedia";
-import { DropdownDictFetchType } from "src/utils/types";
 import {
   StoreAction,
   StoreContextType,

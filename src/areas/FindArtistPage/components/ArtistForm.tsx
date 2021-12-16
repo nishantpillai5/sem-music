@@ -27,7 +27,7 @@ const initialState: ArtistFormType = {
 export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
   const [form, setForm] = React.useState(initialState);
 
-  const { storeState, dispatch } = React.useContext(StoreContext);
+  const { storeState } = React.useContext(StoreContext);
 
   const handleOnChange = (e: any) => {
     const { name, checked } = e.target;
