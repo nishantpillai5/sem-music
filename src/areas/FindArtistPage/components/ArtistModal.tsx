@@ -1,7 +1,11 @@
 import React from "react";
-import Button from "react-bootstrap/esm/Button";
+import { Button, Table } from "react-bootstrap";
+import Carousel from "react-bootstrap/esm/Carousel";
+import Col from "react-bootstrap/esm/Col";
+import ListGroup from "react-bootstrap/esm/ListGroup";
 
 import Modal from "react-bootstrap/esm/Modal";
+import Row from "react-bootstrap/esm/Row";
 import { getArtistInfo } from "src/api/musicBrainz";
 import { ArtistApiType, ArtistFetchType } from "src/utils/types";
 
@@ -20,6 +24,8 @@ export const ArtistModal = ({
     null
   );
 
+  const [tableHidden, setTableHidden] = React.useState(true);
+
   React.useEffect(() => {
     async function getData() {
       if (artist) {
@@ -34,18 +40,64 @@ export const ArtistModal = ({
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>{artistInfo.name}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{artistInfo.name}</Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleCloseModal}>
-          Save Changes
-        </Button>
-      </Modal.Footer>
-      <img src="http://coverartarchive.org/release-group/b5b4bb4b-8ba5-3acf-88cb-4cae2699d8da/front" />
+      <Modal.Body>
+        <Row>
+          <Col>
+            <ListGroup>
+              <ListGroup.Item>Name: {artistInfo.name}</ListGroup.Item>
+              <ListGroup.Item>Country: {artistInfo.country}</ListGroup.Item>
+              <ListGroup.Item>
+                Disambiguation: {artistInfo.disambiguation}
+              </ListGroup.Item>
+            </ListGroup>
+          </Col>
+          <Col sm={7}>
+            <h4>Albums</h4>
+            <Carousel>
+              {artistInfo.releaseGroupList.map((album) => (
+                <Carousel.Item key={album.id}>
+                  <img
+                    className="d-block w-100"
+                    src={`http://coverartarchive.org/release-group/${album.id}/front`}
+                    alt={album.title}
+                  />
+                  <Carousel.Caption>
+                    <h3>{album.title}</h3>
+                    <p>{album["first-release-date"]}</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+            <Button
+              variant="primary"
+              onClick={() => setTableHidden(!tableHidden)}
+              className="container-fluid m-1"
+            >
+              Show Full List
+            </Button>
+          </Col>
+        </Row>
+        <Table hidden={tableHidden} striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Release Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {artistInfo.releaseGroupList.map((album, index) => (
+              <tr>
+                <td>{index}</td>
+                <td>{album.title}</td>
+                <td>{album["first-release-date"]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Modal.Body>
     </Modal>
   );
 };

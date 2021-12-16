@@ -45,6 +45,10 @@ export type ArtistFetchType = BaseFetchType & {
     termType: string;
     value: string;
   };
+  comment: {
+    termType: string;
+    value: string;
+  };
 };
 
 export type ArtistApiType = {
@@ -57,6 +61,7 @@ export type ArtistApiType = {
 };
 
 export type AlbumApiType = {
+  id: string;
   title: string;
   "first-release-date": string;
 };

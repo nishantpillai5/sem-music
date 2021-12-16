@@ -10,7 +10,7 @@ export const Layout = () => {
 
   return (
     <div>
-      <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
+      <Navbar bg="dark" variant="dark" expand="sm">
         <Container>
           <Navbar.Brand href="/">
             {storeState.loading && "Loading - "}

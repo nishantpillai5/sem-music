@@ -44,9 +44,10 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
   return (
     <Form>
       <Form.Group>
-        <Row className="g-2">
-          <Col sm={2}>
+        <Row className="pt-2 ps-2 pe-2">
+          <Col className="">
             <Form.Check
+              className="pt-1"
               label="Type"
               name="typeEnabled"
               type="switch"
@@ -55,7 +56,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleOnChange}
             />
           </Col>
-          <Col sm={2}>
+          <Col>
             <Dropdown
               onSelect={(e) => {
                 if (e) {
@@ -81,8 +82,9 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               </Dropdown.Menu>
             </Dropdown>
           </Col>
-          <Col sm={2}>
+          <Col>
             <Form.Check
+              className="pt-1"
               label="Genre"
               name="genreEnabled"
               type="switch"
@@ -91,7 +93,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleOnChange}
             />
           </Col>
-          <Col sm={2}>
+          <Col>
             <Dropdown
               onSelect={(e) => {
                 if (e) {
@@ -118,9 +120,10 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               </Dropdown.Menu>
             </Dropdown>
           </Col>
-          <Col sm={2}>
+          <Col>
             <Form.Check
-              label="Intrument"
+              className="pt-1"
+              label="Instrument"
               name="instrumentEnabled"
               type="switch"
               id="instrumentEnabled"
@@ -128,7 +131,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleOnChange}
             />
           </Col>
-          <Col sm={2}>
+          <Col>
             <Dropdown
               onSelect={(e) => {
                 if (e) {
@@ -159,8 +162,9 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               </Dropdown.Menu>
             </Dropdown>
           </Col>
-          <Col sm={2}>
+          <Col>
             <Form.Check
+              className="pt-1"
               label="Year"
               name="yearEnabled"
               type="switch"
@@ -169,7 +173,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleOnChange}
             />
           </Col>
-          <Col sm={2}>
+          <Col>
             <Form.Control
               name="startYear"
               type="text"
@@ -178,8 +182,7 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
               onChange={handleTextOnChange}
             />
           </Col>
-          -
-          <Col sm={2}>
+          <Col>
             <Form.Control
               name="endYear"
               type="text"
@@ -189,13 +192,14 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
             />
           </Col>
         </Row>
-        <Row className="g-2">
-          <Col sm={2}></Col>
-          <Col sm={10}></Col>
-        </Row>
       </Form.Group>
-      <Button variant="primary" onClick={() => handleSubmit(form)}>
-        Find
+      <Button
+        className="container-fluid m-2"
+        disabled={storeState.loading}
+        variant={storeState.loading ? "warning" : "primary"}
+        onClick={() => handleSubmit(form)}
+      >
+        {storeState.loading ? "Loading..." : "Find"}
       </Button>
     </Form>
   );

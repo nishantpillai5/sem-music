@@ -9,11 +9,14 @@ import { ArtistCard } from "./components/ArtistCard";
 import { ArtistModal } from "./components/ArtistModal";
 import { ArtistForm } from "./components/ArtistForm";
 import { getArtists } from "src/api/dbpedia";
+import { StoreContext } from "src/store/Store";
 
 export const FindArtistPage = () => {
   const [artists, setArtists] = React.useState<
     FetchDictionary<ArtistFetchType>
   >({});
+
+  const { storeState, dispatch } = React.useContext(StoreContext);
 
   const [showModal, setShowModal] = React.useState(false);
   const [selectedArtist, setSelectedArtist] =
@@ -23,27 +26,33 @@ export const FindArtistPage = () => {
   const handleShowModal = () => setShowModal(true);
 
   const executeQuery = async (form: ArtistFormType) => {
+    dispatch({ type: "set-loading", payload: true });
     const results = await getArtists(form);
     setArtists(results);
+    dispatch({ type: "set-loading", payload: false });
   };
 
   return (
-    <Container>
+    <Container fluid className="p-0">
       <ArtistModal
         artist={selectedArtist}
         handleCloseModal={() => handleCloseModal()}
         showModal={showModal}
       />
-      <ArtistForm handleSubmit={executeQuery} />
-      {Object.keys(artists).map((artist) => (
-        <ArtistCard
-          artist={artists[artist]}
-          handleClick={() => {
-            setSelectedArtist(artists[artist]);
-            handleShowModal();
-          }}
-        />
-      ))}
+      <div className="container-fluid bg-secondary text-white p-0 float-left">
+        <ArtistForm handleSubmit={executeQuery} />
+      </div>
+      <div className="container-fluid bg-light mt-3">
+        {Object.keys(artists).map((artist) => (
+          <ArtistCard
+            artist={artists[artist]}
+            handleClick={() => {
+              setSelectedArtist(artists[artist]);
+              handleShowModal();
+            }}
+          />
+        ))}
+      </div>
     </Container>
   );
 };

@@ -17,7 +17,7 @@ UNION
 
 export const artistQueryBuilder = (form: ArtistFormType) => {
   const query = `
-  SELECT DISTINCT ?data ?label ?startYear ?endYear ?url WHERE {
+  SELECT DISTINCT ?data ?label ?startYear ?endYear ?url ?comment WHERE {
     ${
       form.typeEnabled
         ? `?data rdf:type ${form.type === "Band" ? "dbo:Band" : "foaf:Person"}.`
@@ -27,19 +27,29 @@ export const artistQueryBuilder = (form: ArtistFormType) => {
     ?data foaf:name ?label.
     ?data dbo:activeYearsStartYear ?startYear.
     ?data owl:sameAs ?url.
+    ?data rdfs:comment ?comment.
     OPTIONAL {?data dbo:activeYearsEndYear ?endYear.}
     ${
       form.instrumentEnabled ? `?data dbo:instrument <${form.instrument}>.` : ""
     }
     ${
       form.yearEnabled
-        ? `FILTER (?startYear >= "${form.startYear}"^^<http://www.w3.org/2001/XMLSchema#gYear> && ?startYear <= "${form.endYear}"^^<http://www.w3.org/2001/XMLSchema#gYear>)`
+        ? `FILTER (?startYear >= "${
+            form.startYear
+          }"^^<http://www.w3.org/2001/XMLSchema#gYear> ${
+            form.endYear
+              ? `&& ?startYear <= "${form.endYear}"^^<http://www.w3.org/2001/XMLSchema#gYear>`
+              : `&& ?startYear <= "${(
+                  parseInt(form.startYear) + 20
+                ).toString()}"^^<http://www.w3.org/2001/XMLSchema#gYear>`
+          })`
         : ""
     }
-      FILTER REGEX(?url,"^http://musicbrainz.org").
+      FILTER REGEX(?url,"^http://musicbrainz.org")
+      FILTER (langMatches(lang(?comment), "EN" ))
 
 }
-GROUP BY ?data ?label ?startYear ?endYear
+GROUP BY ?data ?label ?startYear ?endYear ?url ?comment
 LIMIT 100
 `;
   return query;
