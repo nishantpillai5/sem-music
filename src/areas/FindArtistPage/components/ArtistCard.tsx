@@ -25,13 +25,13 @@ export const ArtistCard = ({ artist, handleClick }: ArtistCardProps) => {
             {artist.comment ? artist.comment.value : ""}
             <Stack direction="horizontal" gap={3}>
               {artist.genres
-                ? artist.genres.value
-                    .split(",")
-                    .map((genre) => (
+                ? Array.from(new Set(artist.genres.value.split(","))).map(
+                    (genre: string) => (
                       <div className="bg-light border">
                         {storeState.genres[genre].label.value}
                       </div>
-                    ))
+                    )
+                  )
                 : ""}
             </Stack>
           </div>
