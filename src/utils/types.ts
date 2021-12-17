@@ -53,6 +53,10 @@ export type ArtistFetchType = BaseFetchType & {
     termType: string;
     value: string;
   };
+  pic: {
+    termType: string;
+    value: string;
+  };
 };
 
 export type ArtistApiType = {
