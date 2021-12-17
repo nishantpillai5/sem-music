@@ -22,8 +22,9 @@ export const CustomDrop = React.forwardRef<any, any>(
         <ul className="list-unstyled">
           {React.Children.toArray(children).filter(
             (child) =>
+              !value ||
               // @ts-ignore
-              !value || child.props.children.toLowerCase().startsWith(value)
+              child.props.children.toLowerCase().startsWith(value.toLowerCase())
           )}
         </ul>
       </div>
