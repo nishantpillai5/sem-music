@@ -7,6 +7,7 @@ import Button from "react-bootstrap/esm/Button";
 import { CustomDrop } from "src/shared/CustomDrop";
 import { ArtistFormType } from "src/utils/types";
 import { StoreContext } from "src/store/Store";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 type ArtistFormProps = {
   handleSubmit: (form: ArtistFormType) => void;
@@ -202,7 +203,11 @@ export const ArtistForm = ({ handleSubmit }: ArtistFormProps) => {
         variant={storeState.loading ? "warning" : "primary"}
         onClick={() => handleSubmit(form)}
       >
-        {storeState.loading ? "Loading..." : "Find"}
+        {storeState.loading ? (
+          <Spinner animation="border" variant="dark" />
+        ) : (
+          "Find"
+        )}
       </Button>
     </Form>
   );

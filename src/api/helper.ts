@@ -7,13 +7,14 @@ export const axios = Axios.create({
 
 export const artistQueryBuilder = (form: ArtistFormType) => {
   const query = `
-  SELECT DISTINCT ?data ?label ?startYear ?endYear ?url ?comment WHERE {
+  SELECT DISTINCT ?data ?label ?startYear ?endYear ?url (GROUP_CONCAT(?genre;separator=",") as ?genres) ?comment WHERE {
     ${
       form.typeEnabled
         ? `?data rdf:type ${form.type === "Band" ? "dbo:Band" : "foaf:Person"}.`
         : ""
     }
-    ?data dbo:genre ${form.genreEnabled ? `<${form.genre}>` : "?genre"}.
+    ${form.genreEnabled ? `?data dbo:genre <${form.genre}>.` : ""}
+    ?data dbo:genre ?genre.
     ?data foaf:name ?label.
     ?data dbo:activeYearsStartYear ?startYear.
     ?data owl:sameAs ?url.
